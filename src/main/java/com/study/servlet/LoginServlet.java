@@ -1,6 +1,8 @@
 package main.java.com.study.servlet;
 
 import main.java.com.study.dao.LoginDao;
+import main.java.com.study.service.LoginService;
+import main.java.com.study.service.LoginServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,8 +32,8 @@ public class LoginServlet extends HttpServlet {
 
         String name=req.getParameter("username");
         String password=req.getParameter("password");
-        LoginDao loginDao = new LoginDao();
-        boolean flag=loginDao.login(name, password);
+        LoginService loginService = new LoginServiceImpl();
+        boolean flag = loginService.login(name,password);
         if(flag){
             HttpSession session=req.getSession();
             session.setAttribute("name", name);
