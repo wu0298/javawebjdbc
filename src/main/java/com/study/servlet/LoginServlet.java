@@ -35,9 +35,7 @@ public class LoginServlet extends HttpServlet {
         LoginService loginService = new LoginServiceImpl();
         boolean flag = loginService.login(name,password);
         if(flag){
-            HttpSession session=req.getSession();
-            session.setAttribute("name", name);
-            session.setAttribute("password", password);
+            req.setAttribute("name", name);
             req.getRequestDispatcher("success.jsp").forward(req,resp);
         }else{
             resp.sendRedirect("index.jsp");

@@ -89,4 +89,43 @@ public class JDBCUtil {
         }
 
     }
+
+    public static void closeOperation(ResultSet rs)
+    {
+        if (rs != null){
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if(psta!=null)
+        {
+            try {
+                psta.close();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        if(sta!=null)
+        {
+            try {
+                sta.close();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        if(con!=null)
+        {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+    }
 }

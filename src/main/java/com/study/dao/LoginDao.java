@@ -1,5 +1,6 @@
 package main.java.com.study.dao;
 
+import main.java.com.study.utils.JDBCUtil;
 import main.java.com.study.utils.MysqlHelper;
 
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
  */
 public class LoginDao {
     public boolean login(String userName,String password){
+        boolean b = false;
         String sql="select userName,password from User ";
         ResultSet rs= MysqlHelper.executeQuery(sql);
         try {
@@ -18,14 +20,16 @@ public class LoginDao {
                 String name = rs.getString("userName");
                 String pwd = rs.getString("password");
                 if(name.equals(userName) && pwd.equals(password)){
-                    return true;
+                    b = true;
                 }
             }
             rs.close();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } finally {
+            JDBCUtil.closeOperation(rs);
         }
-        return false;
+        return b;
     }
 }
