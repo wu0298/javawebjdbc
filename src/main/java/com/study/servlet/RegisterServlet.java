@@ -1,6 +1,5 @@
 package main.java.com.study.servlet;
 
-import main.java.com.study.dao.LoginDao;
 import main.java.com.study.service.LoginService;
 import main.java.com.study.service.LoginServiceImpl;
 
@@ -9,17 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * @author ZIKOR
- * @date 2020/9/10 9:20
+ * @date 2020/9/11 16:22
  * @desc
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
-
+@WebServlet("/register")
+public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
@@ -27,18 +25,20 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //设置请求体的字符集为utf-8，从而解决post请求中文乱码问题
         req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=utf-8");
 
-        String name=req.getParameter("username");
-        String password=req.getParameter("p");
+
+        PrintWriter out = resp.getWriter();
+        String name=req.getParameter("user");
+        String password=req.getParameter("passwd");
         LoginService loginService = new LoginServiceImpl();
-        boolean flag = loginService.login(name,password);
-        if(flag){
-            req.setAttribute("name", name);
-            req.getRequestDispatcher("success.jsp").forward(req,resp);
+        int flag = loginService.register(name,password);
+        if(flag==1){
+            out.print("<script>alert('注册成功！')</script>");
+            out.print("<script>window.location='index.jsp'</script>");
         }else{
-            resp.sendRedirect("index.jsp");
+            out.print("<script>alert('注册失败！')</script>");
         }
     }
 }

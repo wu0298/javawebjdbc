@@ -18,4 +18,11 @@ public class LoginServiceImpl implements LoginService {
         boolean flag=loginDao.login(name, password);
         return flag;
     }
+
+    @Override
+    public int register(String name, String password) {
+        LoginDao loginDao = new LoginDao();
+        int i = loginDao.register(name,password);
+        return i;
+    }
 }

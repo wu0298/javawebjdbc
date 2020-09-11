@@ -32,4 +32,17 @@ public class LoginDao {
         }
         return b;
     }
+
+    public int register(String name, String password){
+        String sql="insert into user values(?,?) ";
+        int i=0;
+        try {
+            i = MysqlHelper.executeUpdate(sql,name,password);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            JDBCUtil.closeOperation();
+        }
+        return i;
+    }
 }

@@ -60,7 +60,7 @@ public class JDBCUtil {
     //关闭所有打开的资源
     public static void closeOperation()
     {
-        if(psta==null)
+        if(psta!=null)
         {
             try {
                 psta.close();
@@ -69,7 +69,7 @@ public class JDBCUtil {
                 e.printStackTrace();
             }
         }
-        if(sta==null)
+        if(sta!=null)
         {
             try {
                 sta.close();
@@ -78,7 +78,7 @@ public class JDBCUtil {
                 e.printStackTrace();
             }
         }
-        if(con==null)
+        if(con!=null)
         {
             try {
                 con.close();
